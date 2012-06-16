@@ -1,0 +1,18 @@
+* Activate starter-kit additions
+
+#+begin_src emacs-lisp
+  (starter-kit-load "org")
+  (starter-kit-load "eshell")
+  (starter-kit-load "misc-recommended")
+  (starter-kit-load "lisp")
+  (starter-kit-load "python")
+  (starter-kit-load "ruby")
+  (starter-kit-load "js")
+
+#+end_src
+
+* Interface
+
+#+begin_src emacs-lisp
+  (set-frame-font "Inconsolata-14")
+  (load-theme 'tango)
