@@ -2,35 +2,91 @@
 
 #+begin_src emacs-lisp
 
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-  (unless (require 'el-get nil t)
-    (url-retrieve
-     "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-     (lambda (s)
-       (end-of-buffer)
-       (eval-print-last-sexp))))
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
+   (lambda (s)
+     (let (el-get-master-branch))
+     (end-of-buffer)
+     (eval-print-last-sexp))))
 
-  ;; now either el-get is `require'd already, or have been `load'ed by the
-  ;; el-get installer.
+;; now either el-get is `require'd already, or have been `load'ed by the
+;; el-get installer.
 
+ ;; set local recipes
+(setq
+ el-get-sources
+ '((:name buffer-move	; have to add your own keys
+:after (progn ()
+(global-set-key (kbd "<C-S-up>") 'buf-move-up)
+(global-set-key (kbd "<C-S-down>") 'buf-move-down)
+(global-set-key (kbd "<C-S-left>") 'buf-move-left)
+(global-set-key (kbd "<C-S-right>") 'buf-move-right)))
+
+   (:name smex	; a better (ido like) M-x
+:after (progn ()
+(setq smex-save-file "~/.emacs.d/.smex-items")
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)))
+
+   (:name magit	; git meet emacs, and a binding
+:after (progn ()
+(global-set-key (kbd "C-x C-z") 'magit-status)))
+
+   (:name goto-last-change	; move pointer back to last change
+:after (progn ()
+;; when using AZERTY keyboard, consider C-x C-_
+(global-set-key (kbd "C-x C-/") 'goto-last-change)))))
+
+;; now set our own packages
+(setq
+ my:el-get-packages
+ '(el-get	; el-get is self-hosting
+   switch-window	; takes over C-x o
+   auto-complete	; complete as you type with overlays
+   paredit
+   clojure-mode
+   python-mode
+   cython-mode
+   zencoding-mode	; http://www.emacswiki.org/emacs/ZenCoding
+   color-theme	; nice looking emacs
+   color-theme-solarized))	; check out color-theme-solarized
+
+(setq my:el-get-packages
+      (append
+       my:el-get-packages
+       (loop for src in el-get-sources collect (el-get-source-name src))))
+
+;; install new packages and init already installed packages
+(el-get 'sync my:el-get-packages)
 #+end_src
 
 * Activate starter-kit additions
 
 #+begin_src emacs-lisp
-  (starter-kit-load "org")
-  (starter-kit-load "eshell")
-  (starter-kit-load "misc-recommended")
-  (starter-kit-load "lisp")
-  (starter-kit-load "python")
-  (starter-kit-load "ruby")
-  (starter-kit-load "js")
+(starter-kit-load "org")
+(starter-kit-load "eshell")
+(starter-kit-load "misc-recommended")
+(starter-kit-load "lisp")
+(starter-kit-load "python")
+(starter-kit-load "ruby")
+(starter-kit-load "js")
 
 #+end_src
-
+  
 * Interface
 
 #+begin_src emacs-lisp
-  (set-frame-font "Inconsolata-14")
-  (load-theme 'tango)
+(set-face-font 'default "Inconsolata-14")
+
+(line-number-mode 1)   ; line numbers and
+(column-number-mode 1) ; column numbers in mode line
+
+(global-linum-mode 1)  ; line numbers on left gutter
+
+(eval-after-load "color-theme" '(color-theme-solarized-dark))
+
+#+end_src
+* Todo
