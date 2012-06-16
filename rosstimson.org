@@ -1,3 +1,21 @@
+* el-get
+
+#+begin_src emacs-lisp
+
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+  (unless (require 'el-get nil t)
+    (url-retrieve
+     "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
+     (lambda (s)
+       (end-of-buffer)
+       (eval-print-last-sexp))))
+
+  ;; now either el-get is `require'd already, or have been `load'ed by the
+  ;; el-get installer.
+
+#+end_src
+
 * Activate starter-kit additions
 
 #+begin_src emacs-lisp
