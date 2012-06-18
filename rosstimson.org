@@ -160,6 +160,10 @@ See also `newline-and-indent'."
 
 (eval-after-load "color-theme" '(color-theme-tomorrow-night-eighties))
 
+;; Disable MuMaMo chunk colouring that make horrible blue background
+;; on HTML files when using nxhtml mode.
+(setq mumamo-background-colors nil)
+
 #+end_src
 
 ** Powerline
