@@ -44,14 +44,16 @@
 (setq
  my:el-get-packages
  '(el-get	; el-get is self-hosting
-   switch-window	; takes over C-x o
-   auto-complete	; complete as you type with overlays
+   switch-window	        ; takes over C-x o
+   auto-complete	        ; complete as you type with overlays
    paredit
    clojure-mode
    python-mode
    cython-mode
-   zencoding-mode	; http://www.emacswiki.org/emacs/ZenCoding
-   color-theme	; nice looking emacs
+   zencoding-mode	        ; http://www.emacswiki.org/emacs/ZenCoding
+   powerline
+   color-theme	                ; nice looking emacs
+   color-theme-tomorrow
    color-theme-solarized))	; check out color-theme-solarized
 
 (setq my:el-get-packages
@@ -77,6 +79,7 @@
 #+end_src
   
 * Interface
+** Basic Settings
 
 #+begin_src emacs-lisp
 (set-face-font 'default "Inconsolata-14")
@@ -84,9 +87,33 @@
 (line-number-mode 1)   ; line numbers and
 (column-number-mode 1) ; column numbers in mode line
 
+(global-hl-line-mode)  ; highlight current line
 (global-linum-mode 1)  ; line numbers on left gutter
 
-(eval-after-load "color-theme" '(color-theme-solarized-dark))
+(eval-after-load "color-theme" '(color-theme-tomorrow-night-eighties))
 
 #+end_src
+
+** Powerline
+
+#+begin_src emacs-lisp
+;; Set Powerline colours to fit in with Tomorrow Night Eighties
+(custom-set-faces
+  '(mode-line ((t (:foreground "#f9f9f9" :background "#6699cc" :box
+nil))))) ;; Blue
+;;(setq powerline-color1 "#6699cc") ;; Blue
+;;(setq powerline-color2 "#f2777a") ;; Red
+#+end_src
+
 * Todo
+** DONE Powerline is looking shite
+   Customise Poweline using info here:
+   https://github.com/jonathanchu/emacs-powerline
+   Use colours from Tomorrow Night Eighties theme:
+   https://github.com/chriskempson/tomorrow-theme
+** TODO Configure open next line similar to Vim 'o' & 'O'
+   See here for functions to achieve this:
+   http://www.emacswiki.org/emacs/OpenNextLine
+** TODO Pinch some of the misc settings from emacs-kicker
+   Some nice basic settings here:
+   https://github.com/dimitri/emacs-kicker/blob/master/init.el
