@@ -50,6 +50,7 @@
    clojure-mode
    python-mode
    cython-mode
+   nxhtml                       ; Useful for web development
    zencoding-mode               ; http://www.emacswiki.org/emacs/ZenCoding
    powerline
    color-theme                  ; nice looking emacs
@@ -147,9 +148,11 @@ nil))))) ;; Blue
    https://github.com/jonathanchu/emacs-powerline
    Use colours from Tomorrow Night Eighties theme:
    https://github.com/chriskempson/tomorrow-theme
-** TODO Configure open next line similar to Vim 'o' & 'O'
+** DONE Configure open next line similar to Vim 'o' & 'O'
+
    See here for functions to achieve this:
    http://www.emacswiki.org/emacs/OpenNextLine
 ** TODO Pinch some of the misc settings from emacs-kicker
    Some nice basic settings here:
    https://github.com/dimitri/emacs-kicker/blob/master/init.el
+** TODO Why does nxhtml make background blue?
