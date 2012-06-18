@@ -18,24 +18,24 @@
  ;; set local recipes
 (setq
  el-get-sources
- '((:name buffer-move	; have to add your own keys
+ '((:name buffer-move ; have to add your own keys
 :after (progn ()
 (global-set-key (kbd "<C-S-up>") 'buf-move-up)
 (global-set-key (kbd "<C-S-down>") 'buf-move-down)
 (global-set-key (kbd "<C-S-left>") 'buf-move-left)
 (global-set-key (kbd "<C-S-right>") 'buf-move-right)))
 
-   (:name smex	; a better (ido like) M-x
+   (:name smex ; a better (ido like) M-x
 :after (progn ()
 (setq smex-save-file "~/.emacs.d/.smex-items")
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
 
-   (:name magit	; git meet emacs, and a binding
+   (:name magit ; git meet emacs, and a binding
 :after (progn ()
 (global-set-key (kbd "C-x C-z") 'magit-status)))
 
-   (:name goto-last-change	; move pointer back to last change
+   (:name goto-last-change ; move pointer back to last change
 :after (progn ()
 ;; when using AZERTY keyboard, consider C-x C-_
 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
@@ -43,18 +43,18 @@
 ;; now set our own packages
 (setq
  my:el-get-packages
- '(el-get	; el-get is self-hosting
-   switch-window	        ; takes over C-x o
-   auto-complete	        ; complete as you type with overlays
+ '(el-get                       ; el-get is self-hosting
+   switch-window                ; takes over C-x o
+   auto-complete                ; complete as you type with overlays
    paredit
    clojure-mode
    python-mode
    cython-mode
-   zencoding-mode	        ; http://www.emacswiki.org/emacs/ZenCoding
+   zencoding-mode               ; http://www.emacswiki.org/emacs/ZenCoding
    powerline
-   color-theme	                ; nice looking emacs
+   color-theme                  ; nice looking emacs
    color-theme-tomorrow
-   color-theme-solarized))	; check out color-theme-solarized
+   color-theme-solarized))      ; check out color-theme-solarized
 
 (setq my:el-get-packages
       (append
@@ -77,7 +77,42 @@
 (starter-kit-load "js")
 
 #+end_src
-  
+
+* General Settings
+** Basic
+** Custom Functions
+*** Open Next Line
+
+#+begin_src emacs-lisp
+
+;; Behave like vi's o command
+(defun open-next-line (arg)
+  "Move to the next line and then opens a line.
+See also `newline-and-indent'."
+  (interactive "p")
+  (end-of-line)
+  (open-line arg)
+  (next-line 1)
+  (when newline-and-indent
+    (indent-according-to-mode)))
+(global-set-key (kbd "C-o") 'open-next-line)
+;; Behave like vi's O command
+(defun open-previous-line (arg)
+  "Open a new line before the current one.
+ See also `newline-and-indent'."
+  (interactive "p")
+  (beginning-of-line)
+  (open-line arg)
+  (when newline-and-indent
+    (indent-according-to-mode)))
+(global-set-key (kbd "M-o") 'open-previous-line)
+
+;; Autoindent open-*-lines
+(defvar newline-and-indent t
+  "Modify the behavior of the open-*-line functions to cause them to autoindent.")
+
+#+end_src
+
 * Interface
 ** Basic Settings
 
@@ -97,6 +132,7 @@
 ** Powerline
 
 #+begin_src emacs-lisp
+
 ;; Set Powerline colours to fit in with Tomorrow Night Eighties
 (custom-set-faces
   '(mode-line ((t (:foreground "#f9f9f9" :background "#6699cc" :box
