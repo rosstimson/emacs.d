@@ -1,69 +1,93 @@
 * el-get
 
 #+begin_src emacs-lisp
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-   (lambda (s)
-     (let (el-get-master-branch))
-     (end-of-buffer)
-     (eval-print-last-sexp))))
-
-;; now either el-get is `require'd already, or have been `load'ed by the
-;; el-get installer.
-
- ;; set local recipes
-(setq
- el-get-sources
- '((:name buffer-move ; have to add your own keys
-:after (progn ()
-(global-set-key (kbd "<C-S-up>") 'buf-move-up)
-(global-set-key (kbd "<C-S-down>") 'buf-move-down)
-(global-set-key (kbd "<C-S-left>") 'buf-move-left)
-(global-set-key (kbd "<C-S-right>") 'buf-move-right)))
-
-   (:name smex ; a better (ido like) M-x
-:after (progn ()
-(setq smex-save-file "~/.emacs.d/.smex-items")
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)))
-
-   (:name magit ; git meet emacs, and a binding
-:after (progn ()
-(global-set-key (kbd "C-x C-z") 'magit-status)))
-
-   (:name goto-last-change ; move pointer back to last change
-:after (progn ()
-;; when using AZERTY keyboard, consider C-x C-_
-(global-set-key (kbd "C-x C-/") 'goto-last-change)))))
-
-;; now set our own packages
-(setq
- my:el-get-packages
- '(el-get                       ; el-get is self-hosting
-   switch-window                ; takes over C-x o
-   auto-complete                ; complete as you type with overlays
-   paredit
-   clojure-mode
-   python-mode
-   cython-mode
-   nxhtml                       ; Useful for web development
-   zencoding-mode               ; http://www.emacswiki.org/emacs/ZenCoding
-   powerline
-   color-theme                  ; nice looking emacs
-   color-theme-tomorrow
-   color-theme-solarized))      ; check out color-theme-solarized
-
-(setq my:el-get-packages
-      (append
-       my:el-get-packages
-       (loop for src in el-get-sources collect (el-get-source-name src))))
-
-;; install new packages and init already installed packages
-(el-get 'sync my:el-get-packages)
+  
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+  
+  (unless (require 'el-get nil t)
+    (url-retrieve
+     "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
+     (lambda (s)
+       (let (el-get-master-branch))
+       (end-of-buffer)
+       (eval-print-last-sexp))))
+  
+  ;; now either el-get is `require'd already, or have been `load'ed by the
+  ;; el-get installer.
+  
+   ;; set local recipes
+  (setq
+   el-get-sources
+   '((:name buffer-move ; have to add your own keys
+  :after (progn ()
+  (global-set-key (kbd "<C-S-up>") 'buf-move-up)
+  (global-set-key (kbd "<C-S-down>") 'buf-move-down)
+  (global-set-key (kbd "<C-S-left>") 'buf-move-left)
+  (global-set-key (kbd "<C-S-right>") 'buf-move-right)))
+  
+     (:name smex ; a better (ido like) M-x
+  :after (progn ()
+  (setq smex-save-file "~/.emacs.d/.smex-items")
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
+  
+     (:name magit ; git meet emacs, and a binding
+  :after (progn ()
+  (global-set-key (kbd "C-x C-z") 'magit-status)))
+  
+     (:name goto-last-change ; move pointer back to last change
+  :after (progn ()
+  ;; when using AZERTY keyboard, consider C-x C-_
+  (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
+  
+  ;; now set our own packages
+  (setq
+   my:el-get-packages
+   '(el-get                       ; el-get is self-hosting
+     switch-window                ; takes over C-x o
+     auto-complete                ; complete as you type with overlays
+     auto-complete-css            ; Auto-complete for CSS
+     ido-ubiquitous               ; Use ido (nearly) everywhere
+     helm                         ; Emacs incremental & narrowing framework (previously Anything)
+     paredit                      ; Minor mode for editing parentheses
+     clojure-mode                 ; Major mode for Clojure
+     slime                        ; Superior Lisp Interaction Mode for Emacs
+     swank-clojure                ; Slime adapter for Clojure
+     python-mode                  ; Major mode for Python
+     cython-mode                  ; Major mode for Cython
+     ruby-mode                    ; Major mode for Ruby
+     ;;ri-emacs                     ; View Ri docs in Emacs
+     inf-ruby                     ; Inferior Ruby mode
+     flymake-ruby                 ; Flymake support for Ruby
+     ;;ruby-compilation             ; Run a Ruby process in a compilation buffer
+     ;;ruby-block                   ; Highlight matching block in Ruby
+     rinari                       ; Rinari Is Not A Rails IDE
+     rhtml-mode                   ; Major mode for editing RHTML files
+     haml-mode                    ; Major mode for Haml
+     sass-mode                    ; Major mode for Sass
+     slim-mode                    ; Syntax highlighting for slim-lang
+     coffee-mode                  ; CoffeeScript major mode
+     yaml-mode                    ; Major mode for YAML
+     nxhtml                       ; Useful for web development
+     css-mode                     ; Minor mode for CSS
+     hexcolour                    ; Highlight hex value in colour they represent
+     js2-mode                     ; An improved JavaScript editing mode
+     zencoding-mode               ; http://www.emacswiki.org/emacs/ZenCoding
+     nginx-mode                   ; Major mode for editing Nginx configs
+     powerline                    ; Powerline just like Vim's
+     rainbow-delimiters           ; Colour nested parentheses
+     color-theme                  ; nice looking emacs
+     color-theme-tomorrow
+     color-theme-solarized
+     color-theme-inkpot))
+  
+  (setq my:el-get-packages
+        (append
+         my:el-get-packages
+         (loop for src in el-get-sources collect (el-get-source-name src))))
+  
+  ;; install new packages and init already installed packages
+  (el-get 'sync my:el-get-packages)
 #+end_src
 
 * Activate starter-kit additions
@@ -81,6 +105,14 @@
 
 * General Settings
 ** Basic
+*** Keybindings
+
+#+begin_src emacs-lisp
+
+;; Keybinding for Helm (formerly Anything)
+(global-set-key (kbd "C-c h") 'helm-mini)
+
+#+end_src
 ** Custom Functions
 *** Open Next Line
 
@@ -156,3 +188,8 @@ nil))))) ;; Blue
    Some nice basic settings here:
    https://github.com/dimitri/emacs-kicker/blob/master/init.el
 ** TODO Why does nxhtml make background blue?
+** TODO Look into Anything plugin
+** TODO Make sure you can view Ri docs in Emacs
+** TODO Does Rinari auto add 'end' for Ruby blocks
+   I don't want to have to manually type 'end' for Ruby blocks, may
+   need to install ruby-end plugin.
