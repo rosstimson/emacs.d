@@ -70,7 +70,7 @@
      yaml-mode                    ; Major mode for YAML
      nxhtml                       ; Useful for web development
      css-mode                     ; Minor mode for CSS
-     hexcolour                    ; Highlight hex value in colour they represent
+     rainbow-mode                 ; Minor mode which displays strings in colour they represent
      js2-mode                     ; An improved JavaScript editing mode
      zencoding-mode               ; http://www.emacswiki.org/emacs/ZenCoding
      nginx-mode                   ; Major mode for editing Nginx configs
