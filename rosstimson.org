@@ -105,6 +105,7 @@
 
 * General Settings
 ** Basic
+
 *** Keybindings
 
 #+begin_src emacs-lisp
@@ -112,6 +113,13 @@
 ;; Keybinding for Helm (formerly Anything)
 (global-set-key (kbd "C-c h") 'helm-mini)
 
+#+end_src
+** Whitespace
+
+#+begin_src emacs-lisp
+  (setq whitespace-line-column 78)
+  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  (global-whitespace-mode 1)
 #+end_src
 ** Custom Functions
 *** Open Next Line
