@@ -51,8 +51,8 @@
      helm                         ; Emacs incremental & narrowing framework (previously Anything)
      paredit                      ; Minor mode for editing parentheses
      clojure-mode                 ; Major mode for Clojure
-     slime                        ; Superior Lisp Interaction Mode for Emacs
-     swank-clojure                ; Slime adapter for Clojure
+     ;;slime                        ; Superior Lisp Interaction Mode for Emacs
+     ;;swank-clojure                ; Slime adapter for Clojure
      python-mode                  ; Major mode for Python
      cython-mode                  ; Major mode for Cython
      ruby-mode                    ; Major mode for Ruby
